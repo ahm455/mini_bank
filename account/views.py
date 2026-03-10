@@ -75,7 +75,6 @@ def dashboard(request):
         except Exception as e:
             messages.error(request, str(e))
 
-    # Fetch transaction history (latest first)
     transactions = user.transactions.order_by("-date")  # Assuming a 'date' field
 
     return render(

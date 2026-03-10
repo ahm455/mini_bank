@@ -3,105 +3,477 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard • Finance Flow</title>
     <style>
-    /* General body & container */
-    body { 
-        font-family: Arial, sans-serif; 
-        background: #121212; 
-        color: #e0e0e0; 
-        margin: 0; 
-        padding: 0; 
-    }
+        /* 
+        MODERN FINANCIAL DASHBOARD
+        Color Palette:
+        - Sage Green: #2c5f2d (primary actions, balance)
+        - Warm Sand: #f8f4e9 (main background)
+        - Pure White: #ffffff (cards, containers)
+        - Charcoal: #2d3e4f (text, headers)
+        - Terracotta: #b85c4b (withdraw actions, alerts)
+        - Gold: #e6b422 (highlights, accents)
+        - Mist: #e9ecef (borders, dividers)
+        */
 
-    .container { 
-        max-width: 800px; 
-        margin: 50px auto; 
-        padding: 20px; 
-        background: #1e1e1e; 
-        border-radius: 8px; 
-        box-shadow: 0 0 15px rgba(0,0,0,0.5); 
-    }
+        /* === GOOGLE FONTS === */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    h2 { 
-        text-align: center; 
-        margin-bottom: 20px; 
-        color: #ffffff; 
-    }
+        /* === GLOBAL RESETS === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Messages */
-    .messages p { 
-        color: #80e47c; 
-        text-align: center; 
-        font-weight: bold; 
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f4e9;  /* Warm sand background */
+            color: #2d3e4f;  /* Charcoal text */
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
 
-    /* Form */
-    form { 
-        display: flex; 
-        justify-content: space-between; 
-        margin-bottom: 30px; 
-    }
+        /* === MAIN CONTAINER - ELEGANT CARD === */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 
+                0 20px 40px -10px rgba(44, 95, 45, 0.15),
+                0 8px 20px -8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(230, 180, 34, 0.1);
+            transition: transform 0.3s ease;
+        }
 
-    input[type="number"] { 
-        width: 60%; 
-        padding: 10px; 
-        border-radius: 4px; 
-        border: 1px solid #444; 
-        background: #2b2b2b; 
-        color: #e0e0e0; 
-    }
+        .container:hover {
+            transform: translateY(-5px);
+        }
 
-    input[type="number"]::placeholder {
-        color: #888;
-    }
+        /* === HEADER SECTION === */
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #2d3e4f;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            position: relative;
+            padding-bottom: 16px;
+        }
 
-    button { 
-        width: 18%; 
-        padding: 6px; 
-        border-radius: 4px; 
-        border: none; 
-        background: #6200ea; 
-        color: #fff; 
-        cursor: pointer; 
-        transition: background 0.3s; 
-    }
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #2c5f2d, #e6b422);
+            border-radius: 4px;
+        }
 
-    button:hover { 
-        background: #3700b3; 
-    }
+        h2:first-of-type {
+            margin-top: 0;
+        }
 
-    /* Table */
-    table { 
-        width: 100%; 
-        border-collapse: collapse; 
-    }
+        /* === WELCOME MESSAGE === */
+        h2:first-of-type {
+            color: #2d3e4f;
+            font-size: 36px;
+            background: linear-gradient(135deg, #2c5f2d 0%, #e6b422 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: none;
+        }
 
-    th, td { 
-        padding: 12px; 
-        border: 1px solid #333; 
-        text-align: center; 
-    }
+        h2:first-of-type:after {
+            display: none;
+        }
 
-    th { 
-        background-color: #6200ea; 
-        color: #fff; 
-    }
+        /* === MESSAGES / ALERTS === */
+        .messages {
+            margin: 25px 0;
+        }
 
-    td { 
-        background-color: #2b2b2b; 
-        color: #e0e0e0; 
-    }
+        .messages p {
+            background: linear-gradient(135deg, #e8f3e8 0%, #f8f4e9 100%);
+            color: #2c5f2d;
+            padding: 16px 24px;
+            border-radius: 100px;
+            font-weight: 500;
+            font-size: 15px;
+            border-left: 4px solid #2c5f2d;
+            box-shadow: 0 4px 12px rgba(44, 95, 45, 0.1);
+            animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: inline-block;
+            width: auto;
+        }
 
-    /* Alternate row colors for better readability */
-    tr:nth-child(even) td { 
-        background-color: #252525; 
-    }
-</style>
+        /* === BALANCE CARD === */
+        h1 {
+            font-size: 28px;
+            font-weight: 500;
+            margin: 35px 0 25px;
+            background: linear-gradient(135deg, #f8f4e9 0%, #ffffff 100%);
+            padding: 25px 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(44, 95, 45, 0.15);
+            box-shadow: 0 8px 20px -8px rgba(44, 95, 45, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        h1 strong {
+            color: #2d3e4f;
+            font-weight: 500;
+            font-size: 20px;
+            background: #ffffff;
+            padding: 8px 20px;
+            border-radius: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        h1 span {
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2c5f2d, #e6b422);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        /* === FORM LAYOUT === */
+        form {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            background: #f8f4e9;
+            padding: 25px;
+            border-radius: 28px;
+            border: 1px solid #e9ecef;
+        }
+
+        /* === INPUT FIELD === */
+        input[type="number"] {
+            flex: 2;
+            min-width: 250px;
+            padding: 18px 24px;
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #2d3e4f;
+            background: #ffffff;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #2c5f2d;
+            box-shadow: 0 8px 20px -8px rgba(44, 95, 45, 0.3);
+            transform: scale(1.02);
+        }
+
+        input[type="number"]::placeholder {
+            color: #adb5bd;
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        /* Remove spinner buttons */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* === BUTTON STYLES === */
+        button {
+            flex: 1;
+            min-width: 140px;
+            padding: 18px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Deposit button */
+        button[value="deposit"] {
+            background: #2c5f2d;
+            color: white;
+            border: 2px solid #2c5f2d;
+        }
+
+        button[value="deposit"]:hover {
+            background: #1f4520;
+            border-color: #1f4520;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px -10px #2c5f2d;
+        }
+
+        /* Withdraw button */
+        button[value="withdraw"] {
+            background: #b85c4b;
+            color: white;
+            border: 2px solid #b85c4b;
+        }
+
+        button[value="withdraw"]:hover {
+            background: #9b4a3b;
+            border-color: #9b4a3b;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px -10px #b85c4b;
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Add icons via pseudo-elements */
+        button[value="deposit"]::before {
+            content: "💰";
+            font-size: 18px;
+        }
+
+        button[value="withdraw"]::before {
+            content: "💳";
+            font-size: 18px;
+        }
+
+        /* === TABLE STYLES === */
+        h2:nth-of-type(2) {
+            margin-top: 50px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin: 25px 0 15px;
+        }
+
+        th {
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: #2d3e4f;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: transparent;
+            border-bottom: 2px solid #e6b422;
+        }
+
+        td {
+            padding: 18px 20px;
+            background: #f8f4e9;
+            color: #2d3e4f;
+            font-size: 15px;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+        }
+
+        tr:hover td {
+            background: #f0e9da;
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(44, 95, 45, 0.1);
+        }
+
+        /* Amount column styling */
+        td:last-child {
+            font-weight: 600;
+            color: #2c5f2d;
+        }
+
+        /* Action column badges */
+        td:nth-child(2) {
+            text-transform: capitalize;
+            font-weight: 500;
+        }
+
+        td:nth-child(2):contains("deposit") {
+            color: #2c5f2d;
+        }
+
+        td:nth-child(2):contains("withdraw") {
+            color: #b85c4b;
+        }
+
+        /* Empty state */
+        td[colspan="3"] {
+            text-align: center;
+            color: #adb5bd;
+            font-style: italic;
+            padding: 40px;
+            background: #f8f4e9;
+            border-radius: 20px;
+        }
+
+        /* === LOGOUT LINK === */
+        p {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 2px dashed #e9ecef;
+        }
+
+        p a {
+            color: #2d3e4f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            padding: 12px 32px;
+            border-radius: 40px;
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        p a:hover {
+            background: #b85c4b;
+            color: white;
+            border-color: #b85c4b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -8px #b85c4b;
+        }
+
+        p a::before {
+            content: "🚪 ";
+            opacity: 0.7;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                border-radius: 24px;
+            }
+
+            h2:first-of-type {
+                font-size: 28px;
+            }
+
+            h1 {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            h1 strong {
+                width: 100%;
+                text-align: center;
+            }
+
+            form {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 12px 10px;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            th {
+                font-size: 12px;
+                padding: 10px 8px;
+            }
+
+            td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+        }
+
+        /* === DECORATIVE ELEMENTS === */
+        .container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(230, 180, 34, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(44, 95, 45, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Welcome, {{ user.name }}</h2>
+        <h2>Welcome back, {{ user.name }}</h2>
+        
         <div class="messages">
             {% for message in messages %}
                 <p>{{ message }}</p>
@@ -110,35 +482,41 @@
 
         <form method="POST">
             {% csrf_token %}
-            <input type="number" name="amount" placeholder="Enter amount" step="1" required>
+            <input type="number" name="amount" placeholder="Enter amount (PKR)" step="1" required>
             <button type="submit" name="action" value="deposit">Deposit</button>
             <button type="submit" name="action" value="withdraw">Withdraw</button>
         </form>
-        <h1><strong>Current Balance:</strong> PKR {{ user.balance }}</h1>
+
+        <h1>
+            <strong>Current Balance</strong>
+            <span>PKR {{ user.balance }}</span>
+        </h1>
                 
         <h2>Transaction History</h2>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Action</th>
-        <th>Amount</th>
-    </tr>
-    {% for txn in transactions %}
-    <tr>
-        <td>{{ txn.date }}</td>
-        <td>{{ txn.action }}</td>
-        <td>{{ txn.amount }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">No transactions yet</td>
-    </tr>
-    {% endfor %}
-</table>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Action</th>
+                <th>Amount (PKR)</th>
+            </tr>
+            {% for txn in transactions %}
+            <tr>
+                <td>{{ txn.date }}</td>
+                <td style="color: {% if txn.action == 'deposit' %}#2c5f2d{% else %}#b85c4b{% endif %};">
+                    {{ txn.action }}
+                </td>
+                <td>{{ txn.amount }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">✨ No transactions yet. Make your first move! ✨</td>
+            </tr>
+            {% endfor %}
+        </table>
 
         <!-- Logout -->
-        <p style="text-align: center; margin-top: 20px;">
-            <a href="{% url 'logout' %}" style="color:#007bff;">Logout</a>
+        <p>
+            <a href="{% url 'logout' %}">Logout</a>
         </p>
     </div>
 </body>
